@@ -1,0 +1,17 @@
+DESCRIPTION="RTMP stream toolkit"
+HOMEPAGE="http://rtmpdump.mplayerhq.hu/"
+SRC_URI="http://rtmpdump.mplayerhq.hu/download/${P}.tgz"
+PATCH_URI="2.3-cygwin-dll.patch"
+
+PKG_NAMES="${PN} librtmp0 librtmp-devel"
+rtmpdump_CONTENTS="--exclude=man3 usr/*bin/*.exe usr/share/"
+librtmp0_CONTENTS="usr/bin/cygrtmp-0.dll"
+librtmp_devel_CONTENTS="usr/include/ usr/lib/ usr/share/man/man3/"
+
+MAKEOPTS+=" prefix=/usr SO_EXT=dll.a SYS=posix"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake LIBRTMP=librtmp/librtmp.dll.a
+}

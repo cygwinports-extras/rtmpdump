@@ -1,0 +1,6 @@
+category: Audio Video
+requires: librtmp0 openssl-devel zlib-devel
+external-source: rtmpdump
+sdesc: "RTMP stream library (development)"
+ldesc: "rtmpdump is a toolkit for RTMP streams. All forms of RTMP are 
+supported, including rtmp, rtmpt, rtmpe, rtmpte, and rtmps."

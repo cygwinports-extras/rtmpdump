@@ -1,0 +1,20 @@
+--- origsrc/rtmpdump-2.3/librtmp/Makefile	2010-06-30 15:01:28.000000000 -0500
++++ src/rtmpdump-2.3/librtmp/Makefile	2011-02-01 00:23:57.731793200 -0600
+@@ -64,6 +64,9 @@ librtmp.$(SO_EXT): $(OBJS)
+ 	$(CC) -shared -Wl,-soname,$@ $(LDFLAGS) -o $@ $^ $> $(CRYPTO_LIB)
+ 	ln -sf $@ librtmp.so
+ 
++librtmp.dll.a: $(OBJS)
++	$(CC) -shared -Wl,--out-implib,$@ $(LDFLAGS) -o cygrtmp-0.dll $^ $> $(CRYPTO_LIB)
++
+ log.o: log.c log.h Makefile
+ rtmp.o: rtmp.c rtmp.h rtmp_sys.h handshake.h dh.h log.h amf.h Makefile
+ amf.o: amf.c amf.h bytes.h log.h Makefile
+@@ -89,3 +92,7 @@ install_so.0:	librtmp.so.0
+ 
+ install_dll:	librtmp.dll
+ 	cp librtmp.dll $(BINDIR)
++
++install_dll.a:	librtmp.dll.a
++	cp cygrtmp-0.dll $(BINDIR)
++	cp librtmp.dll.a $(LIBDIR)
