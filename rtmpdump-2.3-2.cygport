@@ -15,3 +15,10 @@ src_compile() {
 	cd ${B}
 	cygmake LIBRTMP=librtmp/librtmp.dll.a
 }
+
+src_install() {
+	cd ${B}
+	cyginstall -j1
+
+	rm -f ${D}/usr/lib/librtmp.a
+}

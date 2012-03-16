@@ -1,5 +1,5 @@
 category: Audio Video
-requires: libopenssl098 zlib0
+requires: libopenssl100 zlib0
 external-source: rtmpdump
 sdesc: "RTMP stream library (runtime)"
 ldesc: "rtmpdump is a toolkit for RTMP streams. All forms of RTMP are 
