@@ -1,0 +1,32 @@
+NAME="rtmpdump"
+VERSION=2.3
+RELEASE=2
+CATEGORY="Audio Video"
+SUMMARY="RTMP stream toolkit"
+DESCRIPTION="rtmpdump is a toolkit for RTMP streams. All forms of RTMP are
+supported, including rtmp, rtmpt, rtmpe, rtmpte, and rtmps."
+HOMEPAGE="http://rtmpdump.mplayerhq.hu/"
+SRC_URI="http://rtmpdump.mplayerhq.hu/download/rtmpdump-${VERSION}.tgz"
+PATCH_URI="2.3-cygwin-dll.patch"
+
+PKG_NAMES="${NAME} librtmp0 librtmp-devel"
+rtmpdump_CONTENTS="--exclude=man3 usr/*bin/*.exe usr/share/"
+librtmp0_CATEGORY="Libs"
+librtmp0_CONTENTS="usr/bin/cygrtmp-0.dll"
+librtmp_devel_CATEGORY="Libs"
+librtmp_devel_CONTENTS="usr/include/ usr/lib/ usr/share/man/man3/"
+
+MAKEOPTS+=" prefix=/usr SO_EXT=dll.a SYS=posix"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake LIBRTMP=librtmp/librtmp.dll.a OPT="${CFLAGS}"
+}
+
+src_install() {
+	cd ${B}
+	cyginstall -j1
+
+	rm -f ${D}/usr/lib/librtmp.a
+}
